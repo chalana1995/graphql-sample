@@ -1,5 +1,3 @@
-const { products, categories } = require("../db");
-
 exports.Query = {
   hello: () => {
     return "hello";
@@ -7,7 +5,7 @@ exports.Query = {
   products: () => {
     return products;
   },
-  product: (parent, args, context) => {
+  product: (parent, args, { products }) => {
     const productId = args.id;
 
     const product = products.find((item) => item.id === productId);
@@ -17,7 +15,7 @@ exports.Query = {
   categories: () => {
     return categories;
   },
-  category: (parent, args, context) => {
+  category: (parent, args, { categories }) => {
     const { id } = args;
     return categories.find((category) => category.id === id);
   },
