@@ -2,8 +2,18 @@ exports.Query = {
   hello: () => {
     return "hello";
   },
-  products: () => {
-    return products;
+  products: (parent, { filter }, { products }) => {
+    const filteredProducts = products;
+
+    if (filter) {
+      if (filter.onSale === true) {
+        filteredProducts = filteredProducts.filter((product) => {
+          return product.onSale;
+        });
+      }
+    }
+
+    return filteredProducts;
   },
   product: (parent, args, { products }) => {
     const productId = args.id;
